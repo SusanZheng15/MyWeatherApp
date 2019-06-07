@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MyWeatherViewController.swift
 //  WeatherApp
 //
 //  Created by Susan Zheng on 6/7/19.
@@ -8,13 +8,17 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MyWeatherViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        setNavigationUI()
     }
 
+    private func setNavigationUI(){
+        self.title = "My Weathers"
+    }
 
 }
 
