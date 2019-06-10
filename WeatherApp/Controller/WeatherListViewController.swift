@@ -86,7 +86,8 @@ class WeatherListViewController: UITableViewController {
     }
     
     @objc private func pressedSetting() {
-        print("setting")
+        let vc = SettingsTableViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -114,7 +115,7 @@ class WeatherListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.frame.size.height / 6
+        return tableView.frame.size.height / 8
     }
 }
 

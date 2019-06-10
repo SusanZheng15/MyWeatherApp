@@ -26,6 +26,11 @@ class WeatherTableViewHeader: UITableViewHeaderFooterView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    lazy var weatherIcon: UIImageView = {
+        let icon = UIImageView()
+        icon.translatesAutoresizingMaskIntoConstraints = false
+        return icon
+    }()
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -49,12 +54,24 @@ class WeatherTableViewHeader: UITableViewHeaderFooterView {
         temperatureLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         temperatureLabel.topAnchor.constraint(equalTo: locationName.bottomAnchor, constant: 10).isActive = true
         temperatureLabel.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        
+        addSubview(weatherIcon)
+        weatherIcon.centerYAnchor.constraint(equalTo: temperatureLabel.centerYAnchor).isActive = true
+        weatherIcon.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        weatherIcon.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        weatherIcon.trailingAnchor.constraint(equalTo: temperatureLabel.leadingAnchor, constant: -10).isActive = true
     }
     
     func setCurrentLocations(weather: WeatherViewModel?) {
+        
         locationName.text = weather?.name
         if let temperature = weather{
-            temperatureLabel.text = "\(temperature.currentTemperature.temperature)"
+            temperatureLabel.text = "\(temperature.currentTemperature.temperature.formatAsDegree)"
+        }
+        if let weather = weather?.weatherDetail.first{
+            if let url = URL(string: "http://openweathermap.org/img/w/\(weather.icon).png"){
+                weatherIcon.sd_setImage(with: url, completed: nil)
+            }
         }
     }
 }
