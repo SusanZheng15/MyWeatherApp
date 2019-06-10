@@ -13,7 +13,7 @@ class WeatherTableViewHeader: UITableViewHeaderFooterView {
     lazy var locationName: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont(name: "AvenirNext-Medium", size: 16)
+        label.font = UIFont(name: "AvenirNext-Medium", size: 20)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -21,7 +21,7 @@ class WeatherTableViewHeader: UITableViewHeaderFooterView {
     lazy var temperatureLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
-        label.font = UIFont(name: "AvenirNext-Medium", size: 24)
+        label.font = UIFont(name: "AvenirNext-Medium", size: 26)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

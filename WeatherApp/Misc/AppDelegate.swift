@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     
     private func displayAppUI(){
-        UINavigationBar.appearance().barTintColor = UIColor(red:0.51, green:0.29, blue:0.73, alpha:1.0)
+        UINavigationBar.appearance().barTintColor = UIColor(red: 44/255, green: 150/255, blue: 222/255, alpha: 1.0)
         UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }

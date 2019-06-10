@@ -10,7 +10,23 @@ import Foundation
 
 
 struct WeatherListViewModel {
-    private var weatherViewModels: [WeatherViewModel]
+    var weatherViewModels: [WeatherViewModel] = []
+    
+    mutating func addWeatherViewModel(_ vm: WeatherViewModel) {
+        self.weatherViewModels.append(vm)
+    }
+    
+    var numberOfSection: Int {
+        return 1
+    }
+    
+    func numberOfRowInSection(_ section: Int) -> Int {
+        return weatherViewModels.count
+    }
+    
+    func weatherAtIndex(_ index: Int) -> WeatherViewModel {
+        return weatherViewModels[index]
+    }
 }
 
 struct WeatherViewModel: Decodable {

@@ -13,30 +13,21 @@ class WeatherListViewController: UITableViewController {
 
     var locationManager = CLLocationManager()
     var currentLocationWeatherVM: WeatherViewModel?
+    var savedWeathersVM = WeatherListViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setNavigationUI()
         locationManager.requestWhenInUseAuthorization()
-        
-//        APIClient.shared.getWeatherResult(location: "miami,us") { (result) in
-//            DispatchQueue.main.async(execute: {
-//                switch result {
-//                case .success(let weather):
-//                    print(weather)
-//                default:
-//                    break
-//                }
-//            })
-//        }
-//
         setUpTableView()
         getUsersLocation()
     }
     
     private func setUpTableView(){
+        self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         self.tableView.register(WeatherTableViewHeader.self, forHeaderFooterViewReuseIdentifier: "header")
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        self.tableView.register(SavedWeatherTableViewCell.self, forCellReuseIdentifier: "cell")
     }
 
     private func getUsersLocation(){
@@ -75,7 +66,23 @@ class WeatherListViewController: UITableViewController {
     }
 
     @objc private func pressedAddWeather() {
-        print("added")
+        let vc = AddWeatherViewController()
+        vc.addedNewWeather = {[weak self] location in
+            APIClient.shared.getWeatherResult(location: location, completion: { [weak self] result in
+                DispatchQueue.main.async(execute: {
+                    switch result {
+                    case .success(let weather):
+                        self?.savedWeathersVM.addWeatherViewModel(weather)
+                        self?.tableView.reloadData()
+                        break
+                    default:
+                        AppUtility.shared.handleAPIResultError(result)
+                        break
+                    }
+                })
+            })
+        }
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc private func pressedSetting() {
@@ -90,6 +97,24 @@ class WeatherListViewController: UITableViewController {
         let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? WeatherTableViewHeader
         headerCell?.setCurrentLocations(weather: currentLocationWeatherVM)
         return headerCell
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return savedWeathersVM.numberOfSection
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return savedWeathersVM.numberOfRowInSection(section)
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SavedWeatherTableViewCell
+        cell.setWeather(savedWeathersVM.weatherAtIndex(indexPath.row))
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return tableView.frame.size.height / 6
     }
 }
 
