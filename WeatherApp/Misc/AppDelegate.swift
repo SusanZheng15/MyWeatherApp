@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         displayAppUI()
-        let firstVC = MyWeatherViewController()
+        let firstVC = WeatherListViewController()
         let navigationController = UINavigationController(rootViewController: firstVC)
         self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
