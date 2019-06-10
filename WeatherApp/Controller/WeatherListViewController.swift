@@ -1,5 +1,5 @@
 //
-//  MyWeatherViewController.swift
+//  WeatherListViewController.swift
 //  WeatherApp
 //
 //  Created by Susan Zheng on 6/7/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MyWeatherViewController: UITableViewController {
+class WeatherListViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

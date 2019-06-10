@@ -34,7 +34,7 @@ class NetworkManager {
                     } else {
                         completion(.other(rawError: error))
                     }
-                } else{
+                } else {
                     if let response = response as? HTTPURLResponse{
                         switch response.statusCode{
                         case 200...299:
@@ -56,6 +56,6 @@ class NetworkManager {
                     }
                 }
             }
-            }.resume()
+        }.resume()
     }
 }

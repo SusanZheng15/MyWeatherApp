@@ -13,7 +13,7 @@ class APIClient {
     
     private init() {}
     
-    func getResult(completion: @escaping (APIResult<Weather>) -> Void){
-        NetworkManager.shared.getRequest(urlString: "https://newsapi.org/v2/everything?q=apple&from=2019-06-05&to=2019-06-05&sortBy=popularity&apiKey=0d121252364d4600b75f97dffcbc2984", completion: completion)
+    func getWeatherResult(location: String, completion: @escaping (APIResult<WeatherViewModel>) -> Void){
+        NetworkManager.shared.getRequest(urlString: "api.openweathermap.org/data/2.5/weather?q=\(location)&APPID=069ee4f0e91f655db64be9aff8edd6fc&units=imperial", completion: completion)
     }
 }
